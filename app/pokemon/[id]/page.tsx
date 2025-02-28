@@ -1,10 +1,53 @@
 import Image from "next/image";
 import Link from "next/link";
 
+// Define interfaces for the data structure of a Pokémon
+
+interface Ability {
+    ability: {
+        name: string;
+    };
+    is_hidden: boolean;
+}
+
+interface Type {
+    type: {
+        name: string;
+    };
+}
+
+interface Stat {
+    stat: {
+        name: string;
+    };
+    base_stat: number;
+}
+
+interface Move {
+    move: {
+        name: string;
+    };
+}
+
+interface Pokemon {
+    name: string;
+    sprites: {
+        front_default: string;
+    };
+    base_experience: number;
+    abilities: Ability[];
+    types: Type[];
+    stats: Stat[];
+    moves: Move[];
+}
+
+// Define the component and type the props
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
     const { id } = params;
+
+    // Fetch Pokémon data from API
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const pokemon = await response.json();
+    const pokemon: Pokemon = await response.json(); // Type the response
 
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white p-6">
@@ -22,6 +65,8 @@ export default async function PokemonDetails({ params }: { params: { id: string 
                         src={pokemon.sprites.front_default}
                         alt={pokemon.name}
                         className="w-64 h-64"
+                        width={256}
+                        height={256}
                     />
                 </div>
 
@@ -32,7 +77,7 @@ export default async function PokemonDetails({ params }: { params: { id: string 
                     <div>
                         <h3 className="text-xl font-semibold text-gray-200">Abilities</h3>
                         <ul className="flex flex-wrap gap-2 mt-2">
-                            {pokemon.abilities.map((item: any, index: number) => (
+                            {pokemon.abilities.map((item, index) => (
                                 <li key={index} className="bg-yellow-500 text-gray-900 px-3 py-1 rounded-full text-sm">
                                     {item.ability.name} {item.is_hidden ? "(Hidden)" : ""}
                                 </li>
@@ -43,7 +88,7 @@ export default async function PokemonDetails({ params }: { params: { id: string 
                     <div className="mt-4">
                         <h3 className="text-xl font-semibold text-gray-200">Types</h3>
                         <ul className="flex gap-3 mt-2">
-                            {pokemon.types.map((item: any, index: number) => (
+                            {pokemon.types.map((item, index) => (
                                 <li key={index} className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">
                                     {item.type.name}
                                 </li>
@@ -54,7 +99,7 @@ export default async function PokemonDetails({ params }: { params: { id: string 
                     <div className="mt-4">
                         <h3 className="text-xl font-semibold text-gray-200">Stats</h3>
                         <ul className="grid grid-cols-2 gap-3 mt-2 text-sm">
-                            {pokemon.stats.map((item: any, index: number) => (
+                            {pokemon.stats.map((item, index) => (
                                 <li key={index} className="border rounded-md p-2 bg-gray-700 text-gray-300">
                                     <span className="font-medium">{item.stat.name}: </span>
                                     {item.base_stat}
@@ -66,7 +111,7 @@ export default async function PokemonDetails({ params }: { params: { id: string 
                     <div className="mt-4">
                         <h3 className="text-xl font-semibold text-gray-200">Moves</h3>
                         <ul className="flex flex-wrap gap-2 mt-2">
-                            {pokemon.moves.slice(0, 5).map((item: any, index: number) => (
+                            {pokemon.moves.slice(0, 5).map((item, index) => (
                                 <li key={index} className="bg-green-500 text-gray-900 px-3 py-1 rounded-full text-sm">
                                     {item.move.name}
                                 </li>
