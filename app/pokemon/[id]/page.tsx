@@ -43,7 +43,7 @@ interface Pokemon {
 
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
 
-  const { id } = params;
+  const { id } =await params;
 
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
