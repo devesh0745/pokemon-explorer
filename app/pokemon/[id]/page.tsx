@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-// Interfaces for Pokemon data
 interface Ability {
   ability: {
     name: string;
@@ -41,24 +40,15 @@ interface Pokemon {
   moves: Move[];
 }
 
-// Update the Props type to match Next.js expectations for dynamic routes
-type Props = {
-  params: {
-    id: string;
-  };
-};
 
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
 
-  // Directly access `params.id` without awaiting it
   const { id } = params;
 
-  // Fetch the Pokemon details using the id
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
   if (!response.ok) {
-    notFound(); // Show a 404 if the Pokémon is not found
-  }
+    notFound();  }
 
   const pokemon: Pokemon = await response.json();
 
