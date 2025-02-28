@@ -40,8 +40,10 @@ interface Pokemon {
 }
 
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
+  // Directly destructure id from params
   const { id } =await params;
 
+  // Fetch the Pokemon details using the id
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   const pokemon: Pokemon = await response.json();
 
