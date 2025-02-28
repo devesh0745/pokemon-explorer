@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface Ability {
   ability: {
@@ -40,11 +41,17 @@ interface Pokemon {
 }
 
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
-  // Directly destructure id from params
-  const { id } =await params;
+  // Destructure id from params
+  const { id } = params;
 
   // Fetch the Pokemon details using the id
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+
+  // Handle 404 if Pokemon is not found
+  if (!response.ok) {
+    notFound();
+  }
+
   const pokemon: Pokemon = await response.json();
 
   return (
