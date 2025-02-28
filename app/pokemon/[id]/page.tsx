@@ -41,6 +41,7 @@ interface Pokemon {
   moves: Move[];
 }
 
+// Update the Props type to match Next.js expectations for dynamic routes
 type Props = {
   params: {
     id: string;
@@ -48,13 +49,14 @@ type Props = {
 };
 
 export default async function PokemonDetails({ params }: Props) {
+  // Directly access `params.id` without awaiting it
   const { id } =await params;
 
   // Fetch the Pokemon details using the id
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
   if (!response.ok) {
-    notFound();
+    notFound(); // Show a 404 if the Pokémon is not found
   }
 
   const pokemon: Pokemon = await response.json();
