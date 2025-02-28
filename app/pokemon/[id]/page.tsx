@@ -49,8 +49,8 @@ type Props = {
 };
 
 export default async function PokemonDetails({ params }: Props) {
-  // Directly access `params.id` without awaiting it
-  const { id } =await params;
+  // ✅ FIX: Remove "await" from params
+  const { id } = params;
 
   // Fetch the Pokemon details using the id
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
