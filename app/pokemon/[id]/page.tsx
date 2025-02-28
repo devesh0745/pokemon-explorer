@@ -65,7 +65,7 @@ export default function PokemonDetails() {
 
         const data = await response.json();
         setPokemon(data);
-      } catch (err) {
+      } catch (_err) {
         setError(true);
       } finally {
         setLoading(false);
