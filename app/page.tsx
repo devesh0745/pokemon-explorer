@@ -12,7 +12,7 @@ export default function Home() {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-useEffect(() => {
+  useEffect(() => {
     async function fetchPokemonData() {
       const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
       const data = await response.json();
@@ -30,7 +30,7 @@ useEffect(() => {
   };
 
   const handleClearSearch = () => {
-    setSearchQuery(""); 
+    setSearchQuery("");
   };
 
   return (
@@ -62,13 +62,23 @@ useEffect(() => {
 
       <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredPokemon.length > 0 ? (
-          filteredPokemon.map((pokemon, index) => (
-            <li key={index} className="bg-gray-800 p-4 rounded-xl text-center hover:bg-gray-700 transition duration-300">
-              <Link href={`/pokemon/${index + 1}`} className="text-lg font-medium capitalize">
-                {pokemon.name}
-              </Link>
-            </li>
-          ))
+          filteredPokemon.map((pokemon) => {
+            const pokemonId = pokemon.url.split("/").slice(-2, -1)[0];
+
+            return (
+              <li
+                key={pokemonId}
+                className="bg-gray-800 p-4 rounded-xl text-center hover:bg-gray-700 transition duration-300"
+              >
+                <Link
+                  href={`/pokemon/${pokemonId}`} 
+                  className="text-lg font-medium capitalize"
+                >
+                  {pokemon.name}
+                </Link>
+              </li>
+            );
+          })
         ) : (
           <p className="text-gray-400">No Pokémon found</p>
         )}
