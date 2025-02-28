@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+// Interfaces for Pokemon data
 interface Ability {
   ability: {
     name: string;
@@ -40,14 +41,13 @@ interface Pokemon {
   moves: Move[];
 }
 
+// The component to render Pokemon details
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
-  // Destructure id from params
-  const { id } = params;
+  const { id } =await params;
 
   // Fetch the Pokemon details using the id
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
-  // Handle 404 if Pokemon is not found
   if (!response.ok) {
     notFound();
   }
