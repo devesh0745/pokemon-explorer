@@ -6,16 +6,17 @@ type Pokemon = {
 };
 
 export default async function Home({ searchParams }: { searchParams?: { query?: string } }) {
+  const { query } =await searchParams || {};
+  const searchQuery = query || ""; 
+  
   const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
   const data = await response.json();
   const pokemonList: Pokemon[] = data.results;
 
-  const searchQuery = searchParams?.query?.toLowerCase() || "";
-
-  // Filter the Pokémon list based on the search query
   const filteredPokemon = pokemonList.filter((pokemon) =>
-    pokemon.name.toLowerCase().includes(searchQuery)
+    pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold mb-6">Pokemon List</h1>

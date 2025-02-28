@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// Define interfaces for the data structure of a Pokémon
-
 interface Ability {
     ability: {
         name: string;
@@ -41,13 +39,11 @@ interface Pokemon {
     moves: Move[];
 }
 
-// Define the component and type the props
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
-    const { id } = params;
+    const { id } =await params;
 
-    // Fetch Pokémon data from API
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    const pokemon: Pokemon = await response.json(); // Type the response
+    const pokemon: Pokemon = await response.json(); 
 
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white p-6">
