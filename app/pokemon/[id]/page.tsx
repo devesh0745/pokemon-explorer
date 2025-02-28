@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function PokemonDetails({ params }: { params: { id: string } }) {
@@ -17,7 +18,7 @@ export default async function PokemonDetails({ params }: { params: { id: string 
 
             <div className="bg-gray-800 shadow-lg rounded-lg p-6 max-w-4xl w-full flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-shrink-0 bg-gray-700 p-4 rounded-lg">
-                    <img
+                    <Image
                         src={pokemon.sprites.front_default}
                         alt={pokemon.name}
                         className="w-64 h-64"
