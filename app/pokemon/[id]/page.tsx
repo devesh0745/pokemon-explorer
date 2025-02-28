@@ -41,8 +41,13 @@ interface Pokemon {
   moves: Move[];
 }
 
-// The component to render Pokemon details
-export default async function PokemonDetails({ params }: { params: { id: string } }) {
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function PokemonDetails({ params }: Props) {
   const { id } =await params;
 
   // Fetch the Pokemon details using the id
