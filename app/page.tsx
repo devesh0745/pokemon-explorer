@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 type Pokemon = {
@@ -5,39 +8,56 @@ type Pokemon = {
   url: string;
 };
 
-export default async function Home({ searchParams }: { searchParams?: { query?: string } }) {
-  const { query } =await searchParams || {};
-  const searchQuery = query || ""; 
-  
-  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
-  const data = await response.json();
-  const pokemonList: Pokemon[] = data.results;
+export default function Home() {
+  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+useEffect(() => {
+    async function fetchPokemonData() {
+      const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
+      const data = await response.json();
+      setPokemonList(data.results);
+    }
+    fetchPokemonData();
+  }, []);
 
   const filteredPokemon = pokemonList.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery(""); 
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold mb-6">Pokemon List</h1>
 
-      <form className="w-full max-w-md mb-6 flex space-x-1" method="get">
+      <form className="w-full max-w-md mb-6 flex space-x-1">
         <input
           type="text"
           name="query"
           placeholder="Search Pokemon..."
-          defaultValue={searchQuery}
+          value={searchQuery}
+          onChange={handleSearchChange}
           className="w-full px-4 py-2 text-black rounded-md outline-none bg-amber-50"
         />
         {searchQuery && (
-          <Link
-            href="/"
+          <button
+            type="button"
+            onClick={handleClearSearch}
             className="text-lg text-white-400 ml-2 mt-1.5"
           >
             X
-          </Link>
+          </button>
         )}
-        <button type="submit" className="ml-2 cursor-pointer hover:text-blue-100">Search</button>
+        <button type="submit" className="ml-2 cursor-pointer hover:text-blue-100">
+          Search
+        </button>
       </form>
 
       <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
