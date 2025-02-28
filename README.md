@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Pokémon List App
+This is a simple Next.js application that fetches a list of Pokémon from the PokéAPI and displays them. Users can search for Pokémon by name, and the list updates dynamically based on the search query. The app uses Server-Side Rendering (SSR) to fetch data on the server, ensuring faster load times and better SEO.
 
-## Getting Started
+Features
+Displays a list of Pokémon fetched from the PokéAPI.
+Search functionality to filter Pokémon by name.
+Search query is handled via URL query parameters.
+SSR is used for fetching Pokémon data.
+Technologies Used
+Next.js (React framework)
+Tailwind CSS (for styling)
+PokéAPI (for Pokémon data)
+Setup Instructions
+To run this project locally, follow these steps:
 
-First, run the development server:
+1. Clone the repository
+bash
+Copy
+Edit
+git clone https://github.com/devesh0745/pokemon-explorer.git
+2. Install dependencies
+Navigate into the project directory and install the necessary packages:
 
-```bash
+bash
+Copy
+Edit
+cd pokemon-list-app
+npm install
+3. Run the development server
+Start the development server to see the app running locally:
+
+bash
+Copy
+Edit
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The application should now be running at http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Usage
+Visit the homepage to see the list of Pokémon.
+You can search for Pokémon by typing the name in the search input field. The list will dynamically update to show results based on your search query.
+Clicking the "X" button will reset the search query and show the full list of Pokémon again.
